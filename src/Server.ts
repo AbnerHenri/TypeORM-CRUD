@@ -1,6 +1,16 @@
-import 'reflect-metadata'
 import express from 'express'
+import appDataSource from './Data-source'
 
-const app = express()
+appDataSource.initialize().then(()=>{ 
+        const app = express()
 
-app.listen(3333, ()=>{ console.log('Running') })
+        app.use(express.json())
+        app.get('/', (req,res)=>{
+            return res.json('Hello World')
+        })
+
+        return app.listen(process.env.PORT, ()=>{
+            console.log('Server Running')
+        })
+    })
+
