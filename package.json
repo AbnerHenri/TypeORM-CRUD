@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/Server.ts",
     "migration:generate" : "typeorm-ts-node-commonjs -d ./src/Data-source.ts migration:generate ./src/Migrations/default",
-    "migration:run": "typeorm-ts-node-commonjs -d ./src/Data-source.ts migration:run ./src/Migrations/default"
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/Data-source.ts migration:run"
     },
   "devDependencies": {
     "@types/express": "^4.17.14",
