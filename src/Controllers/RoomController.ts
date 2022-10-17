@@ -82,4 +82,14 @@ export class RoomController {
             res.status(500).send('Internal Server Error')
         }
     }
+
+    async List(req: Request, res: Response){
+        try {
+            const rooms = await roomRepository.find({ relations : { subjects : true }})
+            res.json(rooms)
+        } catch (error) {
+            console.log(error)
+            res.status(500).send('Internal Server Error')
+        }
+    }
 }
