@@ -8,5 +8,6 @@ const Route = Router()
 Route.post('/subject', new SubjectControllers().Create )
 Route.post('/room', new RoomController().Create )
 Route.post('/room/:idRoom/create', new RoomController().CreateVideo )
+Route.post('/room/:idRoom/subject', new RoomController().RoomSubject )
 
 export default Route

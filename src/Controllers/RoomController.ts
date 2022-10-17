@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { roomRepository } from "../Repositories/roomRepository";
+import { subjectRepository } from "../Repositories/subjectRepository";
 import { videoRepository } from "../Repositories/videoRepository";
 
 export class RoomController {
@@ -45,6 +46,37 @@ export class RoomController {
             await videoRepository.save(newVideo)
             res.send('Video salvo com sucesso')
             
+        } catch (error) {
+            console.log(error)
+            res.status(500).send('Internal Server Error')
+        }
+    }
+
+    async RoomSubject(req: Request, res: Response){
+        const { subject_id } = req.body
+        const { idRoom } = req.params
+
+        try {
+            const room = await roomRepository.findOne({ where: { id: Number(idRoom) } })
+
+            if (!room) {
+                return res.status(404).json({ message: 'A aula não existe' })
+            }
+
+            const subject = await subjectRepository.findOne({ where: { id: Number(subject_id) } })
+
+            if (!subject) {
+                return res.status(404).json({ message: 'A disciplina não existe' })
+            }
+
+            const roomUpdate = {
+                ...room,
+                subjects: [subject]
+            }
+
+            await roomRepository.save(roomUpdate)
+
+            res.status(200).send('Video adicionado as disciplinas')
         } catch (error) {
             console.log(error)
             res.status(500).send('Internal Server Error')
