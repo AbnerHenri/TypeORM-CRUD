@@ -85,7 +85,7 @@ export class RoomController {
 
     async List(req: Request, res: Response){
         try {
-            const rooms = await roomRepository.find({ relations : { subjects : true }})
+            const rooms = await roomRepository.find({ relations : { subjects : true, videos : true }})
             res.json(rooms)
         } catch (error) {
             console.log(error)
